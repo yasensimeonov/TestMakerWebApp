@@ -9,6 +9,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,12 +26,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\components\about\about.component.ts" />
+    <None Remove="ClientApp\app\components\login\login.component.ts" />
+    <None Remove="ClientApp\app\components\pagenotfound\pagenotfound.component.ts" />
     <None Remove="ClientApp\app\components\quiz\quiz-list.component.ts" />
     <None Remove="ClientApp\app\components\quiz\quiz.component.ts" />
     <None Remove="ClientApp\app\interfaces\quiz.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\about\about.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\login\login.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\pagenotfound\pagenotfound.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\quiz\quiz-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\quiz\quiz.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\interfaces\quiz.ts" />
