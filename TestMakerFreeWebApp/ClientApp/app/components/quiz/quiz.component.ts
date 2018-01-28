@@ -1,6 +1,7 @@
 ﻿import { Component, Inject } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
+import "rxjs/add/operator/finally";
 
 @Component({
     selector: "quiz",
@@ -27,6 +28,22 @@ export class QuizComponent {
         else {
             console.log("Invalid id: routing back to home...");
             this.router.navigate(["home"]);
+        }
+    }
+
+    onEdit() {
+        this.router.navigate(["quiz/edit", this.quiz.Id]);
+    }
+
+    onDelete() {
+        if (confirm("Do you really want to delete this quiz?")) {
+            var url = this.baseUrl + "api/quiz/" + this.quiz.Id;
+            this.http
+                .delete(url)
+                .finally(() => this.router.navigate(["home"]))
+                .subscribe(res => {
+                    console.log("Quiz " + this.quiz.Id + " has been deleted.");                  
+                }, error => console.log(error));
         }
     }
 }

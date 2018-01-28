@@ -8,16 +8,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Mapster" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="2.0.0-preview1-final" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,18 +34,34 @@
     <None Remove="ClientApp\app\components\about\about.component.ts" />
     <None Remove="ClientApp\app\components\login\login.component.ts" />
     <None Remove="ClientApp\app\components\pagenotfound\pagenotfound.component.ts" />
+    <None Remove="ClientApp\app\components\question\question-edit.component.ts" />
+    <None Remove="ClientApp\app\components\question\question-list.component.ts" />
+    <None Remove="ClientApp\app\components\quiz\quiz-edit.component.ts" />
     <None Remove="ClientApp\app\components\quiz\quiz-list.component.ts" />
     <None Remove="ClientApp\app\components\quiz\quiz.component.ts" />
+    <None Remove="ClientApp\app\interfaces\answer.ts" />
+    <None Remove="ClientApp\app\interfaces\question.ts" />
     <None Remove="ClientApp\app\interfaces\quiz.ts" />
+    <None Remove="ClientApp\app\interfaces\result.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\components\about\about.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\login\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\pagenotfound\pagenotfound.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\question\question-edit.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\question\question-list.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\quiz\quiz-edit.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\quiz\quiz-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\quiz\quiz.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\interfaces\answer.ts" />
+    <TypeScriptCompile Include="ClientApp\app\interfaces\question.ts" />
     <TypeScriptCompile Include="ClientApp\app\interfaces\quiz.ts" />
+    <TypeScriptCompile Include="ClientApp\app\interfaces\result.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\app\components\answer\" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

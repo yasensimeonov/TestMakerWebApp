@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TestMakerFreeWebApp.Data.Models;
 
 namespace TestMakerFreeWebApp.Data
 {
@@ -42,6 +43,13 @@ namespace TestMakerFreeWebApp.Data
 
         [Required]
         public DateTime LastModifiedDate { get; set; }
+        #endregion
+
+        #region Lazy-Load Properties
+        /// <summary>
+        /// A list of all the quiz created by this users.
+        /// </summary>
+        public virtual List<Quiz> Quizzes { get; set; }
         #endregion
     }
 }
