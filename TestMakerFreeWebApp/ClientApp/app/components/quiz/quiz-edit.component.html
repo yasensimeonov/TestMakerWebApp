@@ -23,5 +23,8 @@
                (click)="onSubmit(quiz)" />
         <input type="button" value="Cancel" (click)="onBack()" />
     </div>
-    <question-list [quiz]="quiz" *ngIf="editMode"></question-list>
+
+    <question-list *ngIf="editMode" [quiz]="quiz"></question-list>
+
+    <result-list *ngIf="editMode" [quiz]="quiz"></result-list>
 </div>

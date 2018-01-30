@@ -1,6 +1,7 @@
 ﻿import { Component, Inject, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
+import "rxjs/add/operator/finally";
 
 @Component({
     selector: "answer-list",
@@ -54,11 +55,10 @@ export class AnswerListComponent implements OnChanges {
             var url = this.baseUrl + "api/answer/" + answer.Id;            
             this.http
                 .delete(url)
+                .finally(() => // refresh the question list
+                    this.loadData())
                 .subscribe(res => {
-                    console.log("Answer " + answer.Id + " has been deleted.");
-        
-                    // refresh the question list
-                    this.loadData();
+                    console.log("Answer " + answer.Id + " has been deleted.");                                                
                 }, error => console.log(error));
         }
     }
