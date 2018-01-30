@@ -32,6 +32,8 @@
 
   <ItemGroup>
     <None Remove="ClientApp\app\components\about\about.component.ts" />
+    <None Remove="ClientApp\app\components\answer\answer-edit.component.ts" />
+    <None Remove="ClientApp\app\components\answer\answer-list.component.ts" />
     <None Remove="ClientApp\app\components\login\login.component.ts" />
     <None Remove="ClientApp\app\components\pagenotfound\pagenotfound.component.ts" />
     <None Remove="ClientApp\app\components\question\question-edit.component.ts" />
@@ -47,6 +49,8 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\components\about\about.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\answer\answer-edit.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\answer\answer-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\login\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\pagenotfound\pagenotfound.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\question\question-edit.component.ts" />
@@ -58,10 +62,6 @@
     <TypeScriptCompile Include="ClientApp\app\interfaces\question.ts" />
     <TypeScriptCompile Include="ClientApp\app\interfaces\quiz.ts" />
     <TypeScriptCompile Include="ClientApp\app\interfaces\result.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp\app\components\answer\" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

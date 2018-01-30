@@ -2,12 +2,12 @@
     <h2>{{quiz.Title}}</h2>
     <ul>
         <li>
-            <label>Title:</label>
-            <input [(ngModel)]="quiz.Title" placeholder="Insert the title..." />
+            <label for="title">Title:</label>
+            <input id="title" [(ngModel)]="quiz.Title" placeholder="Insert the title..." />
         </li>
         <li>
-            <label>Description:</label>
-            <textarea [(ngModel)]=" quiz.Description"
+            <label for="desc">Description:</label>
+            <textarea id="desc" [(ngModel)]=" quiz.Description"
                       placeholder="Insert a suitable description..."></textarea>
         </li>
     </ul>
