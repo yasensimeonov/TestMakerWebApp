@@ -42,6 +42,10 @@ export class QuestionEditComponent {
             this.http.get<Question>(url).subscribe(res => {
                 this.question = res;
                 this.title = "Edit - " + this.question.Text;
+
+                // update the form with the question value
+                this.updateForm();
+
             }, error => console.error(error));
         }
         else {
