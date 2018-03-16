@@ -9,6 +9,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using TestMakerFreeWebApp.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace TestMakerFreeWebApp
 {
@@ -31,8 +35,49 @@ namespace TestMakerFreeWebApp
 
             // Add ApplicationDbContext.
             services.AddDbContext<ApplicationDbContext>(options => 
-                        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-                        );
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+                );
+
+            // Add ASP.NET Identity support
+            services.AddIdentity<ApplicationUser, IdentityRole>(
+                opts =>
+                {
+                    opts.Password.RequireDigit = true;
+                    opts.Password.RequireLowercase = true;
+                    opts.Password.RequireUppercase = true;
+                    opts.Password.RequireNonAlphanumeric = false;
+                    opts.Password.RequiredLength = 7;
+                })
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            // Add Authentication with JWT Tokens
+            services.AddAuthentication(opts =>
+            {
+                opts.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(cfg =>
+            {
+                cfg.RequireHttpsMetadata = false;
+                cfg.SaveToken = true;
+                cfg.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    // standard configuration
+                    ValidIssuer = Configuration["Auth:Jwt:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(Configuration["Auth:Jwt:Key"])),
+                    ValidAudience = Configuration["Auth:Jwt:Audience"],
+                    ClockSkew = TimeSpan.Zero,
+
+                    // security switches
+                    RequireExpirationTime = true,
+                    ValidateIssuer = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidateAudience = true
+                };
+                //cfg.IncludeErrorDetails = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +106,9 @@ namespace TestMakerFreeWebApp
                     context.Context.Response.Headers["Expires"] = Configuration["StaticFiles:Headers:Expires"];
                 }
             });
+
+            // Add the AuthenticationMiddleware to the pipeline
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

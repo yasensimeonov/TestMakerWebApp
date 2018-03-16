@@ -108,6 +108,7 @@ export class QuestionEditComponent {
         var url = this.baseUrl + "api/question";
 
         if (this.editMode) {
+
             // don't forget to set the tempQuiz Id,
             // otherwise the EDIT would fail!
             tempQuestion.Id = this.question.Id;

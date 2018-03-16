@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using TestMakerFreeWebApp.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace TestMakerFreeWebApp
 {
@@ -29,7 +31,14 @@ namespace TestMakerFreeWebApp
             using (var scope = host.Services.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
-                DbSeeder.Seed(dbContext);
+
+                var roleManager = scope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+                var userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+
+                // Create the Db if it doesn't exist and applies any pending migration.
+                //dbContext.Database.Migrate();
+
+                DbSeeder.Seed(dbContext, roleManager, userManager);
             }
             host.Run();
         }
