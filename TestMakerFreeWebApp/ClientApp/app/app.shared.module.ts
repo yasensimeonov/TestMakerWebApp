@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+
+import { AuthService } from './services/auth.service';
+import { AuthInterceptor } from './services/auth.interceptor';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -61,6 +64,14 @@ import { PageNotFoundComponent } from './components/pagenotfound/pagenotfound.co
             { path: 'login', component: LoginComponent },
             { path: '**', component: PageNotFoundComponent }
         ])
+    ],
+    providers: [        
+        AuthService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        }
     ]
 })
 

@@ -9,6 +9,8 @@ using Mapster;
 using TestMakerFreeWebApp.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace TestMakerFreeWebApp.Controllers
 {    
@@ -26,7 +28,7 @@ namespace TestMakerFreeWebApp.Controllers
         /// </summary>
         /// <param name="id">The ID of an existing Quiz</param>
         /// <returns>the Quiz with the given {id}</returns>
-        [HttpGet("{id}")]
+        [HttpGet("{id}")]        
         public IActionResult Get(int id)
         {
             var quiz = DbContext.Quizzes.Where(i => i.Id == id).FirstOrDefault();
@@ -51,6 +53,7 @@ namespace TestMakerFreeWebApp.Controllers
         /// </summary>
         /// <param name="model">The QuizViewModel containing the data to insert</param>
         [HttpPut]
+        [Authorize]
         public IActionResult Put([FromBody]QuizViewModel model)
         {
             // return a generic HTTP Status 500 (Server Error)
@@ -70,9 +73,12 @@ namespace TestMakerFreeWebApp.Controllers
             quiz.CreatedDate = DateTime.Now;
             quiz.LastModifiedDate = quiz.CreatedDate;
 
-            // Set a temporary author using the Admin user's userId
-            // as user login isn't supported yet: we'll change this later on.
-            quiz.UserId = DbContext.Users.Where(u => u.UserName == "Admin").FirstOrDefault().Id;
+            //// Set a temporary author using the Admin user's userId
+            //// as user login isn't supported yet: we'll change this later on.
+            //quiz.UserId = DbContext.Users.Where(u => u.UserName == "Admin").FirstOrDefault().Id;
+
+            // retrieve the current user's Id
+            quiz.UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             // add the new quiz
             DbContext.Quizzes.Add(quiz);
@@ -90,6 +96,7 @@ namespace TestMakerFreeWebApp.Controllers
         /// </summary>
         /// <param name="model">The QuizViewModel containing the data to update</param>
         [HttpPost]
+        [Authorize]
         public IActionResult Post([FromBody]QuizViewModel model)
         {
             // return a generic HTTP Status 500 (Server Error)
@@ -133,6 +140,7 @@ namespace TestMakerFreeWebApp.Controllers
         /// </summary>
         /// <param name="id">The ID of an existing Quiz</param>
         [HttpDelete("{id}")]
+        [Authorize]
         public IActionResult Delete(int id)
         {
             // retrieve the quiz from the Database
