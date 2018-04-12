@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Mapster" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="2.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
@@ -35,6 +36,7 @@
     <None Remove="ClientApp\app\components\answer\answer-edit.component.ts" />
     <None Remove="ClientApp\app\components\answer\answer-list.component.ts" />
     <None Remove="ClientApp\app\components\login\login.component.ts" />
+    <None Remove="ClientApp\app\components\login\login.externalproviders.component.ts" />
     <None Remove="ClientApp\app\components\login\login.facebook.component.ts" />
     <None Remove="ClientApp\app\components\pagenotfound\pagenotfound.component.ts" />
     <None Remove="ClientApp\app\components\question\question-edit.component.ts" />
@@ -62,6 +64,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\answer\answer-edit.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\answer\answer-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\login\login.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\login\login.externalproviders.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\login\login.facebook.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\pagenotfound\pagenotfound.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\question\question-edit.component.ts" />

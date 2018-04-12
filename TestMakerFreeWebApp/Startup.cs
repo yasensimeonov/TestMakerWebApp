@@ -57,6 +57,7 @@ namespace TestMakerFreeWebApp
                 opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
+            // Add Jwt token support
             .AddJwtBearer(cfg =>
             {
                 cfg.RequireHttpsMetadata = false;
@@ -76,7 +77,13 @@ namespace TestMakerFreeWebApp
                     ValidateIssuerSigningKey = true,
                     ValidateAudience = true
                 };
-                //cfg.IncludeErrorDetails = true;
+                cfg.IncludeErrorDetails = true;
+            })
+            // Add Facebook support
+            .AddFacebook(opts =>
+            {
+                opts.AppId = Configuration["Auth:Facebook:AppId"];
+                opts.AppSecret = Configuration["Auth:Facebook:AppSecret"];
             });
         }
 

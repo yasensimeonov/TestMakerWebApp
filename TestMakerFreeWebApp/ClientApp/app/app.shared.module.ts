@@ -24,6 +24,7 @@ import { ResultEditComponent } from './components/result/result-edit.component';
 import { AboutComponent } from './components/about/about.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoginFacebookComponent } from './components/login/login.facebook.component';
+import { LoginExternalProvidersComponent } from './components/login/login.externalproviders.component';
 import { RegisterComponent } from './components/user/register.component';
 import { PageNotFoundComponent } from './components/pagenotfound/pagenotfound.component';
 
@@ -45,6 +46,7 @@ import { PageNotFoundComponent } from './components/pagenotfound/pagenotfound.co
         AboutComponent,
         LoginComponent,
         LoginFacebookComponent,
+        LoginExternalProvidersComponent,
         RegisterComponent,
         PageNotFoundComponent
     ],
