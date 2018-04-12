@@ -3,19 +3,18 @@
 namespace TestMakerFreeWebApp.ViewModels
 {
     [JsonObject(MemberSerialization.OptOut)]
-    public class TokenResponseViewModel
+    public class ExternalLoginRequestViewModel
     {
         #region Constructor
-        public TokenResponseViewModel()
+        public ExternalLoginRequestViewModel()
         {
 
         }
         #endregion
 
         #region Properties
-        public string token { get; set; }
-        public int expiration { get; set; }
-        public string refresh_token { get; set; }
+        public string access_token { get; set; }
+        public string client_id { get; set; }
         #endregion
     }
 }

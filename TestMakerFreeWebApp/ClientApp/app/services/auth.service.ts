@@ -26,6 +26,26 @@ export class AuthService {
             scope: "offline_access profile email"
         };
 
+        return this.getAuthFromServer(url, data);
+    }
+
+    // try to refresh token
+    refreshToken(): Observable<boolean> {
+        var url = "api/token/auth";
+        var data = {
+            client_id: this.clientId,
+            // required when signing up with username/password
+            grant_type: "refresh_token",
+            refresh_token: this.getAuth()!.refresh_token,
+            // space-separated list of scopes for which the token is issued
+            scope: "offline_access profile email"
+        };
+
+        return this.getAuthFromServer(url, data);
+    }
+
+    // retrieve the access & refresh tokens from the server
+    getAuthFromServer(url: string, data: any): Observable<boolean> {
         return this.http.post<TokenResponse>(url, data)
             .map((res) => {
                 let token = res && res.token;
@@ -53,30 +73,35 @@ export class AuthService {
 
     // Persist auth into localStorage or removes it if a NULL argument is given
     setAuth(auth: TokenResponse | null): boolean {
-        if (auth) {
-            localStorage.setItem(
-                this.authKey,
-                JSON.stringify(auth));
-        }
-        else {
-            localStorage.removeItem(this.authKey);
+        if (isPlatformBrowser(this.platformId)) {
+            if (auth) {
+                localStorage.setItem(
+                    this.authKey,
+                    JSON.stringify(auth));
+            }
+            else {
+                localStorage.removeItem(this.authKey);
+            }
         }
         return true;
     }
 
     // Retrieves the auth JSON object (or NULL if none)
     getAuth(): TokenResponse | null {
-        var i = localStorage.getItem(this.authKey);
-        if (i) {
-            return JSON.parse(i);
+        if (isPlatformBrowser(this.platformId)) {
+            var i = localStorage.getItem(this.authKey);
+            if (i) {
+                return JSON.parse(i);
+            }
         }
-        else {
-            return null;
-        }
+        return null;
     }
 
     // Returns TRUE if the user is logged in, FALSE otherwise.
     isLoggedIn(): boolean {
-        return localStorage.getItem(this.authKey) != null;
+        if (isPlatformBrowser(this.platformId)) {
+            return localStorage.getItem(this.authKey) != null;
+        }
+        return false;
     }
 }

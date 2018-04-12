@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { AuthService } from './services/auth.service';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { AuthResponseInterceptor } from './services/auth.response.interceptor';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -22,6 +23,8 @@ import { ResultListComponent } from './components/result/result-list.component';
 import { ResultEditComponent } from './components/result/result-edit.component';
 import { AboutComponent } from './components/about/about.component';
 import { LoginComponent } from './components/login/login.component';
+import { LoginFacebookComponent } from './components/login/login.facebook.component';
+import { RegisterComponent } from './components/user/register.component';
 import { PageNotFoundComponent } from './components/pagenotfound/pagenotfound.component';
 
 @NgModule({
@@ -41,6 +44,8 @@ import { PageNotFoundComponent } from './components/pagenotfound/pagenotfound.co
         ResultEditComponent,
         AboutComponent,
         LoginComponent,
+        LoginFacebookComponent,
+        RegisterComponent,
         PageNotFoundComponent
     ],
     imports: [
@@ -62,6 +67,7 @@ import { PageNotFoundComponent } from './components/pagenotfound/pagenotfound.co
             { path: 'result/edit/:id', component: ResultEditComponent },
             { path: 'about', component: AboutComponent },
             { path: 'login', component: LoginComponent },
+            { path: 'register', component: RegisterComponent },
             { path: '**', component: PageNotFoundComponent }
         ])
     ],
@@ -70,6 +76,11 @@ import { PageNotFoundComponent } from './components/pagenotfound/pagenotfound.co
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthResponseInterceptor,
             multi: true
         }
     ]
